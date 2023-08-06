@@ -10,35 +10,61 @@ class Basket {
   // Робимо метод calculateTotalPrice, що розраховує загальну вартість товарів в кошику з урахуванням знижки
   // За допомогою метода reduce ми сумуємо вартість всіх товарів в масиві
   // Застосовуємо знижку до загальної вартості за допомогою метода applyDiscount нашого об'єкта discountPlan
+
+  constructor(discountPlan) {
+    this.discountPlan = discountPlan;
+    this.goods = [];
+  }
+
+  addGood(good) {
+    this.goods.push(good);
+  }
+
+  calculateTotalPrice() {
+    const totalPrice = this.goods.reduce((total, good) => total + good.price, 0);
+    return this.discountPlan.applyDiscount(totalPrice);
+  }
 }
 
 // Клас RegularDiscountPlan: стратегія знижки для постійних клієнтів
 class RegularDiscountPlan extends Basket {
   // Робимо метод applyDiscount, що приймає ціну price як параметр
   // Повертає ціну з урахуванням знижки в 10% price * 0.9
+
+  applyDiscount(price) {
+    return price * 0.9; // 10% discount for regular clients
+  }
 }
 
 //Клас VIPDiscountPlan: стратегія знижки для VIP клієнтів
 class VIPDiscountPlan extends Basket {
   // Робимо метод applyDiscount, що приймає ціну price як параметр
   // Повертає ціну з урахуванням знижки в 20% price * 0.8
+
+  applyDiscount(price) {
+    return price * 0.8; // 20% discount for VIP clients
+  }
 }
 
 // Клас NewClientDiscountPlan: стратегія знижки для нових клієнтів
 class NewClientDiscountPlan extends Basket {
   // Робимо метод applyDiscount, що приймає ціну price як параметр
   // Повертає ціну з урахуванням знижки в 5% price * 0.95
+
+  applyDiscount(price) {
+    return price * 0.95; // 5% discount for new clients
+  }
 }
 
 console.log("Завдання 6 ====================================");
 // Після виконання розкоментуйте код нижче
 
 // Створення нового екземпляру кошика зі стратегією знижки для нових клієнтів
-// const basket1 = new Basket(new NewClientDiscountPlan());
+const basket1 = new Basket(new NewClientDiscountPlan());
 
 // Додавання товарів до кошика
-// basket1.addGood({ name: "Product 1", price: 100 });
-// basket1.addGood({ name: "Product 2", price: 50 });
+basket1.addGood({ name: "Product 1", price: 100 });
+basket1.addGood({ name: "Product 2", price: 50 });
 
 // Розрахунок і виведення загальної вартості товарів з урахуванням знижки
-// console.log(basket1.calculateTotalPrice());
+console.log(basket1.calculateTotalPrice());

@@ -6,6 +6,10 @@ class Letter {
   // Створіть конструктор, що приймає назву листа title та його текстовий вміст text та ініціалізує відповідні поля
   // Записуємо аргумент title в властивість title, яка представляє назву листа в класі
   // Записуємо аргумент text в властивість text, яка представляє  текстовий вміст листа в класі
+  constructor(title, text) {
+    this.title = title;
+    this.text = text;
+  }
 }
 
 // Клас Picture представляє об'єкт зображення з назвою та розміром
@@ -13,6 +17,10 @@ class Picture {
   // Створіть конструктор, що приймає назву зображення title та його розмір size та ініціалізує відповідні поля
   // Записуємо аргумент title в властивість title, яка представляє назву зображення в класі
   //  Записуємо аргумент size в властивість size, яка представляє розмір зображення
+  constructor(title, size) {
+    this.title = title;
+    this.size = size;
+  }
 }
 
 // Клас Movie представляє об'єкт відеофільму з назвою та тривалістю
@@ -20,6 +28,10 @@ class Movie {
   // Конструктор приймає назву відеофільму title та його тривалість duration та ініціалізує відповідні поля
   // Записуємо аргумент title в властивість title, яка представляє назву відеофільму в класі
   // Записуємо аргумент duration в властивість duration, яка представляє тривалість відеофільму
+  constructor(title, duration) {
+    this.title = title;
+    this.duration = duration;
+  }
 }
 
 // Клас Portfolio представляє колекцію об'єктів, таких як листи, зображення та відеофільми
@@ -33,26 +45,59 @@ class Portfolio {
   // Робимо ітерацію for де є змінна element в яку приходять елементи this.elements
   // Через instanceof по черзі через if та instanceof перевіряємо відношення element до кожного класу.
   // Якщо element є елементом певного класу, то викликати відповідний метод для читання об'єкту певного класу
+
+  constructor() {
+    this.elements = [];
+  }
+
+  addElement(element) {
+    this.elements.push(element);
+  }
+
+  readLetter(letter) {
+    console.log(`Лист: ${letter.title}, Розмір: ${letter.text.length} символів`);
+  }
+
+  readPicture(picture) {
+    console.log(`Картина: ${picture.title}, Розмір: ${picture.size} KB`);
+  }
+
+  readMovie(movie) {
+    console.log(`Фільм: ${movie.title}, Тривалість: ${movie.duration} хвилин`);
+  }
+
+  readElements() {
+    for (const element of this.elements) {
+      if (element instanceof Letter) {
+        this.readLetter(element);
+      } else if (element instanceof Picture) {
+        this.readPicture(element);
+      } else if (element instanceof Movie) {
+        this.readMovie(element);
+      }
+    }
+  }
+
 }
 
 console.log("Завдання 4 ====================================");
 // Після виконання розкоментуйте код нижче
 
 // Створюємо екземпляр класу Portfolio
-// const myPortfolio = new Portfolio();
+const myPortfolio = new Portfolio();
 
 // Створюємо різні об'єкти
-// const letter = new Letter("My Letter", "Hello, this is a letter.");
-// const picture = new Picture("My Picture", 2048);
-// const movie = new Movie("My Movie", 120);
+const letter = new Letter("My Letter", "Hello, this is a letter.");
+const picture = new Picture("My Picture", 2048);
+const movie = new Movie("My Movie", 120);
 
 // Додаємо об'єкти до портфоліо
-// myPortfolio.addElement(letter);
-// myPortfolio.addElement(picture);
-// myPortfolio.addElement(movie);
+myPortfolio.addElement(letter);
+myPortfolio.addElement(picture);
+myPortfolio.addElement(movie);
 
 // Виводимо всі об'єкти в портфоліо
-// console.log(myPortfolio.elements);
+console.log(myPortfolio.elements);
 
 // Читаємо інформацію про всі об'єкти в портфоліо
-// myPortfolio.readElements();
+myPortfolio.readElements();
